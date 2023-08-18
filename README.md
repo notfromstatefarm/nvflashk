@@ -1,16 +1,31 @@
-# Patched nvflash
+# nvflashk
 
 This is a patched version of [nvflash](https://www.techpowerup.com/download/nvidia-nvflash/), nVIDIA's utility for modifying the vBIOS (amongst many other things) on their GPUs.
 
-However, their software (understandably) comes with built-in limitations. One of those limitations is that the Board ID of your GPU must match any vBIOS you attempt to flash to it. While the PCI Subsystem ID can be overridden, the internal board ID cannot. Essentially, the BIOS had to have been made for your particular PCB.
+However, their software (understandably) comes with built-in limitations. One of those limitations is that the GPU ID, Board ID, and other IDs of your GPU must match any vBIOS you attempt to flash to it. While the PCI Subsystem ID can sometimes be overridden, the internal board ID and others cannot. Essentially, the BIOS had to have been made for your particular PCB and chip combo.
 
-For 99.999% of users, that should be the only need for nvflash: updating your cards to BIOS meant for them. However, extreme overclockers need more.. like the ability to flash the [1000w XOC BIOS for the RTX 4090](https://www.techpowerup.com/vgabios/253487/253487) to the ASUS 4090 TUF to make use of all that liquid metal and subambient cooling.
+For 99.999% of users, that should be the only need for nvflash: updating your cards to BIOS meant for them. However, extreme overclockers need more.. like the ability to flash the 1.1v [1000w XOC BIOS for the RTX 4090](https://www.techpowerup.com/vgabios/253487/253487) to the 1.07v ASUS 4090 TUF to make use of all that liquid metal and subambient cooling.
+
+# What does this actually bypass?
+
+During the -6 command, nvflash still verifies a few different things against the BIOS ROM you are trying to flash. This version has overridden all of them and will allow you to flash *any* vBIOS to *any* card.
+
+In theory, this includes the boards in the 2xxx and 3xxx series which received revised chips that then would not accept the higher power limit BIOSes available. But test this at your own risk, I personally have not. All I know is that this tool *will* try to flash a 3060 vBIOS to my 4090 and I have not grown the balls to try.
+
+The items that are checked are:
+
+* GPU PCI Device ID (GPU chip, i.e. 2xxx/3xxx/4xxx)
+* PCI Subsystem ID (PCB ID)
+* Board ID (PCB+GPU ID)
+* Hierarchy (Unknown, potentially Lovelace/Turing/etc)
+* A couple other minor items that appear to just be software-defined metadata
+
+nVidia has implemented their own 'mismatch bypass' within the nvflash code, and this version has forced that bypass to be enabled at all times. This makes this a very, very dangerous version of nvflash. However, it will still confirm you want to perform those bypasses and only when they're necessary, unlike former versions of patched nvflash.
 
 # Versioning/Support
 
 The current version is `5.814.0.k1`. The version will be the base nvflash version i.e. `5.814.0` followed by a `.kN`. This way, if I have to release a patch to my patch, you know which version you have.
 
-Currently this tool supports all nVidia GPUs up to and including the 4000 series. It has been extensively confirmed to work with flashing a 1000W STRIX XOC BIOS to the 600W TUF 4090 and back, but beyond that has not been tested further.
 
 # How to use
 
