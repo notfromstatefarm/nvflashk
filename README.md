@@ -1,4 +1,7 @@
 # nvflashk
+[![Github All Releases](https://img.shields.io/github/downloads/notfromstatefarm/nvflash/total.svg)]()
+
+[Proof it works, flashing a 1.1v 1000W 4090 STRIX XOC BIOS to my 1.07v 4090 TUF OC](https://www.youtube.com/watch?v=iEZBof0S9dc)
 
 This is a patched version of [nvflash](https://www.techpowerup.com/download/nvidia-nvflash/), nVIDIA's utility for modifying the vBIOS (amongst many other things) on their GPUs.
 
