@@ -3,13 +3,36 @@
 
 [Proof it works, flashing a 1.1v 1000W 4090 STRIX XOC BIOS to my 1.07v 4090 TUF OC](https://www.youtube.com/watch?v=iEZBof0S9dc)
 
-This is a patched version of [nvflash](https://www.techpowerup.com/download/nvidia-nvflash/), nVIDIA's utility for modifying the vBIOS (amongst many other things) on their GPUs.
+This is a patched version of [nvflash](https://www.techpowerup.com/download/nvidia-nvflash/), nVIDIA's utility for modifying the vBIOS (amongst many other things) on their GPUs which allows flashing *any* vBIOS to *any* nVIDIA GPU. Black magic stuff.
 
-However, their software (understandably) comes with built-in limitations. One of those limitations is that the GPU ID, Board ID, and other IDs of your GPU must match any vBIOS you attempt to flash to it. While the PCI Subsystem ID can sometimes be overridden, the internal board ID and others cannot. Essentially, the BIOS had to have been made for your particular PCB and chip combo.
+The factory nvflash comes with built-in limitations. One of those limitations is that the GPU ID, Board ID, and other IDs of your GPU must match any vBIOS you attempt to flash to it. While the PCI Subsystem ID can sometimes be overridden with `-6`, the internal board ID and others cannot. Essentially, the BIOS had to have been made for your particular PCB and chip combo.
 
-For 99.999% of users, that should be the only need for nvflash: updating your cards to BIOS meant for them. However, extreme overclockers need more.. like the ability to flash the 1.1v [1000w XOC BIOS for the RTX 4090](https://www.techpowerup.com/vgabios/253487/253487) to the 1.07v ASUS 4090 TUF to make use of all that liquid metal and subambient cooling.
+For most users, that limitation makes sense. However, there are those who seek maximum performance from the hardware they buy. Have a 1.07v limited 4 series and want the full 1.1v? Want to flash a 1000W XOC BIOS to one of those 1.07v cards? Planning on slapping an AIB BIOS onto your FE? You'll probably need this tool.
 
-# What does this actually bypass?
+nvflashk enables flashing *any* nVIDIA BIOS to *any* nVIDIA GPU up to the 4000 series.
+
+**The base of this tool is copyright nVIDIA and has been provided in a modified fashion for the sole purpose of modifying personal property. This is dangerous and you will have no one but yourself to blame if things go wrong. Your warranty will be null and void the second you so much as think about using this tool.**
+
+**God speed, overclocker.**
+
+# Explanation
+## So wait, this gets me 1.1v on my 4090/1.11v on my 4080 again?
+
+Yep, if you're one of the unlucky bastards that bought a 4090/4080 later down the line, you can flash a full voltage BIOS to your neutered card now. I won't tell you which BIOS that is, though. So far this has been confirmed on a 4090 and 4080.
+
+## What else have you tried?
+
+So far the following scenarios have been confirmed, and I will continue to update as confirmations come in:
+
+* 4090 STRIX XOC 1.1v BIOS flashed to 4090 TUF OC card with 1.07v (4090 voltage fix confirmed!)
+* 4090 Founders Edition BIOS flashed to 4090 TUF OC card (this was supposed to be impossible due to 'different bios chips')
+* 4080 flashed from 1.095v to original 1.11v BIOS (4080 voltage fix confirmed!)
+
+Things I'm curious about whether or not it works:
+* Unsigned/modified BIOSes
+* 2xxx/3xxx series that had revisions which locked out older power-boosted BIOSes
+ 
+## What does this actually bypass?
 
 During the -6 command, nvflash still verifies a few different things against the BIOS ROM you are trying to flash. This version has overridden all of them and will allow you to flash *any* vBIOS to *any* card.
 
@@ -23,14 +46,22 @@ The items that are checked are:
 * Hierarchy (Unknown, potentially Lovelace/Turing/etc)
 * A couple other minor items that appear to just be software-defined metadata
 
-nVidia has implemented their own 'mismatch bypass' within the nvflash code, and this version has forced that bypass to be enabled at all times. This makes this a very, very dangerous version of nvflash. However, it will still confirm you want to perform those bypasses and only when they're necessary, unlike former versions of patched nvflash.
+nVidia has implemented their own 'mismatch bypass' within the nvflash code, and this version has forced that bypass to be enabled at all times. This makes this a very, very dangerous version of nvflash. However, **it will still confirm you want to perform those bypasses and only when they're necessary, unlike former versions of patched nvflash**. This will not flash all willy nilly.
 
-# Versioning/Support
+## Safety
+
+Alright, everyone's gonna ask about safety. Is it safe? I can't legally tell you if it is or isn't. I don't know.
+
+What I can tell you is that nVidia's flashing protocol appears to be robust and failures do not prevent reflashing. If something breaks or your power cuts out, you can boot up and reflash, even without an iGPU. However, what happens when you do something like flash a BIOS from one series to another has never been seen before. It could cause major electrical problems. Who knows.
+
+If you don't feel safe doing it, wait until someone else does. I'll keep a list of successful weird things in the README.
+
+## Versioning/Support
 
 The current version is `5.814.0.k1`. The version will be the base nvflash version i.e. `5.814.0` followed by a `.kN`. This way, if I have to release a patch to my patch, you know which version you have.
 
 
-# How to use
+# Instructions
 
 First off, know what you're doing. Yes, technically speaking, flashing in and of itself should be a relatively safe ordeal. You can always flash back and many GPUs have dual BIOS switches.
 
@@ -38,11 +69,11 @@ But god knows what may be in those black box BIOS files and what may make them u
 
 ## Download
 
-Get from releases page and place anywhere you'd like.
+Get latest `nvflash64k.exe` from [releases page](https://github.com/notfromstatefarm/nvflash/releases) and place anywhere you'd like.
 
 ## Flashing
 
-I'm not going to go in depth into the nvflash tool - this is the same feature set as the official version. The main difference is that I've force-enabled the built-in bypass that nVidia made for these mismatches, so if your board ID doesn't match, it will still flash.
+I'm not going to go in depth into the nvflash tool - this is the same feature set as the official version. The main difference is that I've force-enabled the built-in bypass that nVidia made for these mismatches, so if your board ID doesn't match, it will still flash. You still need to use -6 for any of these bypasses to work.
 
 As you run the tool, it will disable the video driver and your screen will black out momentarily. Don't panic. You can disable the video device yourself in Device Manager if you'd rather avoid this.
 
