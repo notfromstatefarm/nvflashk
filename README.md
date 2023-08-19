@@ -4,7 +4,7 @@
 [![Flashing a 4090 TUF OC to STRIX BIOS for 1.1v and getting huge gains](https://img.youtube.com/vi/25EarvBrkX8/default.jpg)](https://youtu.be/25EarvBrkX8) [![Flashing a 4090 TUF OC to the Founders Edition BIOS](https://img.youtube.com/vi/ADlVK0HoMkw/default.jpg)](https://youtu.be/ADlVK0HoMkw) [![Flashing a 1.1v 1000W 4090 STRIX XOC BIOS to a 1.07v 4090 TUF OC](https://img.youtube.com/vi/iEZBof0S9dc/default.jpg)](https://youtu.be/iEZBof0S9dc)
 
 
-This is a patched version of [nvflash](https://www.techpowerup.com/download/nvidia-nvflash/), nVIDIA's utility for modifying the vBIOS (amongst many other things) on their GPUs which allows flashing almost vBIOS to nVIDIA GPUs. Black magic stuff.
+This is a patched version of [nvflash](https://www.techpowerup.com/download/nvidia-nvflash/), nVIDIA's utility for modifying the vBIOS (amongst many other things). This version allows you to flash nearly any *signed* BIOS to your GPU. Custom BIOS bypass coming soon.
 
 The factory nvflash comes with built-in limitations. One of those limitations is that the GPU ID, Board ID, and other IDs of your GPU must match any vBIOS you attempt to flash to it. While the PCI Subsystem ID can sometimes be overridden with `-6`, the internal board ID and others cannot. Essentially, the BIOS had to have been made for your particular PCB and chip combo.
 
