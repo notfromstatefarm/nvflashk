@@ -12,7 +12,7 @@ The factory nvflash comes with built-in limitations. One of those limitations is
 
 For most users, that limitation makes sense. However, there are those who seek maximum performance from the hardware they buy. Have a 1.07v limited 4 series and want the full 1.1v? Want to flash a 1000W XOC BIOS to one of those 1.07v cards? Planning on slapping an AIB BIOS onto your FE? You'll probably need this tool.
 
-nvflashk enables you to flash almost any nVIDIA BIOS to your GPU. Whether or not it will actually work is a different story, but you should always be able to flash back even if your power cuts out mid-flash. The GPU will simply go into a fallback mode with generic display drivers.
+nvflashk enables you to flash almost any nVIDIA BIOS to your GPU. Whether or not it will actually work is a different story, but you should always be able to flash back even if your power cuts out mid-flash. The GPU will either go into a fallback mode with generic display drivers, or you'll simply have to reflash using your iGPU, the secondary BIOS on your GPU if you have a dual BIOS, or another computer. One way or the other, you cannot permanently damage an NVIDIA GPU from a BIOS flash in and of itself. The results once you try to put load on it, however, cannot be guaranteed.
 
 **The base of this tool is copyright nVIDIA and has been provided in a modified fashion for the sole purpose of modifying personal property. This is dangerous and you will have no one but yourself to blame if things go wrong. Your warranty will be null and void the second you so much as think about using this tool.**
 
@@ -66,9 +66,9 @@ nVidia has implemented their own 'mismatch bypass' within the nvflash code, and 
 
 *First off, thank you for your contribution and courage!* It's almost impossible to actually permanently brick an NVIDIA card in the sense of a BIOS that won't boot. If you burn out components by putting load on it that the hardware wasn't designed to handle, that's another story. But you should always be able to flash back if it fails to upload the ROM.
 
-The only question is whether or not you'll have to use your iGPU or another computer to flash it back. In almost every case, the answer is no: the GPU will go into fallback mode and you can flash it while using it. But if you somehow upload a BIOS that, say, has no video outputs.. you may be in trouble without another computer.
+The only question is whether or not you'll have to use your iGPU or another computer to flash it back. In many cases, the answer is no: the GPU will go into fallback mode and you can flash it while using it. But if you somehow upload a BIOS that, say, has no video output.. you may be in trouble without another computer, PCIe slot, or dual BIOS GPU. Doing something like flashing the 4080 XOC BIOS to a 4090 will cause no video outputs and I had to use my BIOS switch to recover.
 
-When I attempted to flash an A5000 BIOS to my 4090, among other test cases, the GPU itself simply rejected the firmware, regardless of whether nvflash wanted it there or not, and I just had to reboot:
+On the other hand, when I attempted to flash an A5000 BIOS to my 4090, the GPU simply rejected the firmware, regardless of whether nvflash wanted it there or not, and I just had to reboot my machine:
 ```
 Update display adapter firmware?
 Press 'y' to confirm (any other key to abort):
@@ -81,6 +81,12 @@ Nothing changed!
 ERROR: Invalid firmware image detected.
 ```
 
+If you want to be safe when flashing, you need at least one of the following, sorted from easiest recovery to hardest:
+
+* An integrated GPU and output on the motherboard. You simply use the main output while you flash the GPU as normal.
+* A GPU with a dual BIOS switch. Shut down, flip the switch, start up, disable device in device manager, flip it back, flash, reboot. You can use `nvflash64k.exe --version` to show what is on the card, and `nvflask64k.exe --version file.rom` to show what is in a file, to ensure you are flashing the right things. **Make sure you back up your second BIOS ROM too in case it does something different you want to restore!**
+* An extra PCIe x16 slot and extra GPU that can fit (probably only with a riser cable) and you have extra power cables for, in order to use a working GPU to flash the broken GPU.
+* Another computer with an iGPU or extra PCIe slot as described above.
 ## Versioning/Support
 
 The current version is `5.814.0.k1`. The version will be the base nvflash version i.e. `5.814.0` followed by a `.kN`. This way, if I have to release a patch to my patch, you know which version you have.
