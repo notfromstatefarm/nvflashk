@@ -6,7 +6,7 @@
 
 This is a patched version of [nvflash](https://www.techpowerup.com/download/nvidia-nvflash/), nVIDIA's utility for modifying the vBIOS (amongst many other things). This version allows you to flash nearly any *signed* BIOS to your GPU. Custom BIOS bypass coming soon.
 
-> Before using this tool, make sure you back up your factory ROM. **Seriously, do it. You only have to do it once per card. This 10 second process is how you protect yourself against any potential failures, and failures DO happen randomly for absolutely no reason. Back the file up to another computer. Do not lose your factory ROM, you may never find a replacement that you are certain matches perfectly because the installed BIOS is what truly identifies your card.**
+> Before using this tool, make sure you back up your factory ROM. **Seriously, do it. You only have to do it once per card. This 10 second process is how you protect yourself against any potential failures, and failures DO happen randomly for absolutely no reason. Back the file up to another computer. Do not lose your factory ROM, you may never find a replacement that you are certain matches perfectly because the installed BIOS is what truly identifies your card. Instructions for doing so are below.** 
 
 The factory nvflash comes with built-in limitations. One of those limitations is that the GPU ID, Board ID, and other IDs of your GPU must match any vBIOS you attempt to flash to it. While the PCI Subsystem ID can sometimes be overridden with `-6`, the internal board ID and others cannot. Essentially, the BIOS had to have been made for your particular PCB and chip combo.
 
