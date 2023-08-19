@@ -19,7 +19,9 @@ nvflashk enables flashing *any* nVIDIA BIOS to *any* nVIDIA GPU up to the 4000 s
 # Explanation
 ## So wait, this gets me 1.1v on my 4090/1.11v on my 4080 again? I can run those fancy BIOS that gave me 'Board ID mismatch' now?
 
-Yep, if you're one of the unlucky bastards that bought a 4090/4080 later down the line, you can flash full voltage BIOSes to your neutered card now. I won't tell you which BIOS that is, though. So far this has been confirmed on multiple 4090s and 4080s. This means that not only do you get full voltage back, you also get to flash any of the higher power BIOSes that you wish again.
+Yep, if you're one of the unlucky bastards that bought a 4090/4080 later down the line, you can flash full voltage BIOSes to your neutered card now. **It appears that it was only a BIOS change, not a physical change, that enforced the 1.07v limitation**.
+
+I won't tell you which BIOS to use, though. That's on you and the community to figure out. So far this has been confirmed on multiple 4090s and 4080s. We've even flashed a STRIX BIOS to a Founders Edition 3070. This means that not only do you get full voltage back, you also get to flash any of the higher power BIOSes that you wish again.
 
 [Here's a video I recorded showing huge benchmark gains from upgrading to a 1.1v BIOS.](https://www.youtube.com/watch?v=25EarvBrkX8)
 
