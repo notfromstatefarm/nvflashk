@@ -20,7 +20,6 @@ nvflashk enables you to flash almost any nVIDIA BIOS to your GPU. Whether or not
 
 **God speed, overclocker.**
 
-# Explanation
 ## So wait, this gets me 1.1v on my 4090/1.11v on my 4080 again? I can run those fancy BIOS that gave me 'Board ID mismatch' now?
 
 Yep, if you're one of the unlucky bastards that bought a 4090/4080 later down the line, you can flash full voltage BIOSes to your neutered card now. **It appears that it was only a BIOS change, not a physical change, that enforced the 1.07v limitation**.
@@ -29,24 +28,29 @@ I won't tell you which BIOS to use, though. That's on you and the community to f
 
 [Here's a video I recorded showing huge benchmark gains from upgrading to a 1.1v BIOS.](https://www.youtube.com/watch?v=25EarvBrkX8)
 
-## What else have you tried?
+# Test cases
 
-So far the following scenarios have been confirmed, and I will continue to update as confirmations come in:
+## Successful
 
 * 4090 STRIX XOC 1.1v BIOS flashed to 4090 TUF OC card with 1.07v (4090 voltage fix confirmed!)
 * 4080 flashed from 1.095v to original 1.11v BIOS (4080 voltage fix confirmed!)
 * 4090 Founders Edition BIOS flashed to 4090 TUF OC card (this was supposed to be impossible due to 'different bios chips')
 * 3070 STRIX BIOS flashed to 3070 Founders Edition (**Flashing AIB to FE 3xxx series confirmed!**)
+* 4090 STRIX XOC 
+## nvflashk allows but causes no display or otherwise cannot reflash itself
+Note that these can still be experimented with and reflashed, you just need a way to reflash without that GPU. See 'Recovery when something goes wrong' below.
 
-Things we know DOES NOT work:
+* Flashing a 4080 BIOS to a 4090
+
+## GPU will reject the ROM (nothing happens)
 * Cross-flashing generations i.e. 3xxx to 2xxx
 * Cross-flashing workstation/non-workstation, i.e. 4090 to an A5000. They're not actually identical though, which may be why.
  
-Things I'm curious about whether or not it works:
+## Not yet tested
 * Unsigned/modified BIOSes
 * 2xxx/3xxx series that had revisions which locked out older power-boosted BIOSes
  
-## What does this actually bypass?
+# What does this actually bypass?
 
 During the -6 command, nvflash still verifies a few different things against the BIOS ROM you are trying to flash. This version has overridden all of them and will allow you to flash *any* vBIOS to *any* card.
 
@@ -62,7 +66,7 @@ The items that are checked are:
 
 nVidia has implemented their own 'mismatch bypass' within the nvflash code, and this version has forced that bypass to be enabled at all times. This makes this a very, very dangerous version of nvflash. However, **it will still confirm you want to perform those bypasses and only when they're necessary, unlike former versions of patched nvflash**. This will not flash all willy nilly.
 
-# I want to try flashing something nobody else has tried before. How do I stay safe?
+# Recovery when something goes wrong
 
 *First off, thank you for your contribution and courage!* It's almost impossible to actually permanently brick an NVIDIA card in the sense of a BIOS that won't boot. If you burn out components by putting load on it that the hardware wasn't designed to handle, that's another story. But you should always be able to flash back if it fails to upload the ROM.
 
@@ -81,13 +85,20 @@ Nothing changed!
 ERROR: Invalid firmware image detected.
 ```
 
+I've also had mid-flash failures which resulted in this message:
+```
+WARNING: Broken image found, last flashing process might be interrupted and not complete.
+```
+But again, a simple reflash.
+
 If you want to be safe when flashing, you need at least one of the following, sorted from easiest recovery to hardest:
 
 * An integrated GPU and output on the motherboard. You simply use the main output while you flash the GPU as normal.
 * A GPU with a dual BIOS switch. Shut down, flip the switch, start up, disable device in device manager, flip it back, flash, reboot. You can use `nvflash64k.exe --version` to show what is on the card, and `nvflask64k.exe --version file.rom` to show what is in a file, to ensure you are flashing the right things. **Make sure you back up your second BIOS ROM too in case it does something different you want to restore!**
 * An extra PCIe x16 slot and extra GPU that can fit (probably only with a riser cable) and you have extra power cables for, in order to use a working GPU to flash the broken GPU.
 * Another computer with an iGPU or extra PCIe slot as described above.
-## Versioning/Support
+
+# Versioning/Support
 
 The current version is `5.814.0.k1`. The version will be the base nvflash version i.e. `5.814.0` followed by a `.kN`. This way, if I have to release a patch to my patch, you know which version you have.
 
@@ -229,65 +240,3 @@ Reboot and say hi to @kefinator on discord.gg/overclock
 ```
 
 Have fun! To revert, you just run the exact same command against the backup BIOS ROM file after rebooting.
-# What happens if the flash fails?
-
-Usually, you can just flash it again. Worst case, you plug the GPU into another computer or use your integrated graphics. The GPU almost always still works for non-accelerated graphics so you can do this even without an iGPU. Here's an example of me flashing back to my stock BIOS after a failed flash to the XOC BIOS:
-
-```
-.\nvflash64k.exe -6 .\tufoc.rom
-NVIDIA Firmware Update Utility (Version 5.814.0.k1)
-
-Mismatch bypass by @kefinator. JOIN DISCORD: discord.gg/overclock
-Checking for matches between display adapter(s) and image(s)...
-
-Reading EEPROM (this operation may take up to 30 seconds)
-
-WARNING: Broken image found, last flashing process might be interrupted and not complete.
-
-
-WARNING: Firmware image PCI Subsystem ID (1043.88E2)
-  does not match adapter PCI Subsystem ID (1043.889C).
-WARNING: None of the firmware image compatible Board ID's
-match the Board ID of the adapter.
-  Adapter Board ID:        03E3
-  Firmware image Board ID: 0475
-
-PCI Subsystem ID mismatch bypassed!
-This could be dangerous. It could also get you a high score..
-
-==BACK UP YOUR BIOS TO STAY SAFE==
-Type "YES" to continue sending it:
-YES
-
-Bypassing the PCI Subsystem ID mismatch
-
-Board ID mismatch
-
-Board ID mismatch bypassed!
-This could be dangerous. It could also get you a high score..
-
-==BACK UP YOUR BIOS TO STAY SAFE==
-Type "YES" to continue sending it:
-YES
-
-Bypassing the Board ID mismatch
-
-Current      - Version:95.02.18.80.83 ID:10DE:2684:1043:889C
-               GPU Board (Normal Board)
-Replace with - Version:95.02.3C.40.B7 ID:10DE:2684:1043:88E2
-               GPU Board (Normal Board)
-
-Update display adapter firmware?
-Press 'y' to confirm (any other key to abort):
-Reading EEPROM (this operation may take up to 30 seconds)
-
-WARNING: Broken image found, last flashing process might be interrupted and not complete.
-
-[==================================================] 100 %
-Reading EEPROM (this operation may take up to 30 seconds)
-
-Reading EEPROM (this operation may take up to 30 seconds)
-
-
-Reboot and say hi to @kefinator on discord.gg/overclock
-```
