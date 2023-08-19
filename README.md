@@ -4,13 +4,13 @@
 [![Flashing a 4090 TUF OC to STRIX BIOS for 1.1v and getting huge gains](https://img.youtube.com/vi/25EarvBrkX8/default.jpg)](https://youtu.be/25EarvBrkX8) [![Flashing a 4090 TUF OC to the Founders Edition BIOS](https://img.youtube.com/vi/ADlVK0HoMkw/default.jpg)](https://youtu.be/ADlVK0HoMkw) [![Flashing a 1.1v 1000W 4090 STRIX XOC BIOS to a 1.07v 4090 TUF OC](https://img.youtube.com/vi/iEZBof0S9dc/default.jpg)](https://youtu.be/iEZBof0S9dc)
 
 
-This is a patched version of [nvflash](https://www.techpowerup.com/download/nvidia-nvflash/), nVIDIA's utility for modifying the vBIOS (amongst many other things) on their GPUs which allows flashing *any* vBIOS to *any* nVIDIA GPU. Black magic stuff.
+This is a patched version of [nvflash](https://www.techpowerup.com/download/nvidia-nvflash/), nVIDIA's utility for modifying the vBIOS (amongst many other things) on their GPUs which allows flashing almost vBIOS to nVIDIA GPUs. Black magic stuff.
 
 The factory nvflash comes with built-in limitations. One of those limitations is that the GPU ID, Board ID, and other IDs of your GPU must match any vBIOS you attempt to flash to it. While the PCI Subsystem ID can sometimes be overridden with `-6`, the internal board ID and others cannot. Essentially, the BIOS had to have been made for your particular PCB and chip combo.
 
 For most users, that limitation makes sense. However, there are those who seek maximum performance from the hardware they buy. Have a 1.07v limited 4 series and want the full 1.1v? Want to flash a 1000W XOC BIOS to one of those 1.07v cards? Planning on slapping an AIB BIOS onto your FE? You'll probably need this tool.
 
-nvflashk enables flashing *any* nVIDIA BIOS to *any* nVIDIA GPU up to the 4000 series.
+nvflashk enables you to flash almost any nVIDIA BIOS to your GPU. Whether or not it will actually work is a different story, but you should always be able to flash back even if your power cuts out mid-flash. The GPU will simply go into a fallback mode with generic display drivers.
 
 **The base of this tool is copyright nVIDIA and has been provided in a modified fashion for the sole purpose of modifying personal property. This is dangerous and you will have no one but yourself to blame if things go wrong. Your warranty will be null and void the second you so much as think about using this tool.**
 
@@ -43,7 +43,7 @@ Things I'm curious about whether or not it works:
 
 During the -6 command, nvflash still verifies a few different things against the BIOS ROM you are trying to flash. This version has overridden all of them and will allow you to flash *any* vBIOS to *any* card.
 
-In theory, this includes the boards in the 2xxx and 3xxx series which received revised chips that then would not accept the higher power limit BIOSes available. But test this at your own risk, I personally have not. All I know is that this tool *will* try to flash a 3060 vBIOS to my 4090 and I have not grown the balls to try.
+In theory, this includes the boards in the 2xxx and 3xxx series which received revised chips that then would not accept the higher power limit BIOSes available.
 
 The items that are checked are:
 
