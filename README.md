@@ -6,6 +6,8 @@
 
 This is a patched version of [nvflash](https://www.techpowerup.com/download/nvidia-nvflash/), nVIDIA's utility for modifying the vBIOS (amongst many other things). This version allows you to flash nearly any *signed* BIOS to your GPU. Custom BIOS bypass coming soon.
 
+> Before using this tool, make sure you back up your factory ROM. **Seriously, do it. You only have to do it once per card. This 10 second process is how you protect yourself against any potential failures, and failures DO happen randomly for absolutely no reason. Back the file up to another computer. Do not lose your factory ROM, you may never find a replacement that you are certain matches perfectly because the installed BIOS is what truly identifies your card.**
+
 The factory nvflash comes with built-in limitations. One of those limitations is that the GPU ID, Board ID, and other IDs of your GPU must match any vBIOS you attempt to flash to it. While the PCI Subsystem ID can sometimes be overridden with `-6`, the internal board ID and others cannot. Essentially, the BIOS had to have been made for your particular PCB and chip combo.
 
 For most users, that limitation makes sense. However, there are those who seek maximum performance from the hardware they buy. Have a 1.07v limited 4 series and want the full 1.1v? Want to flash a 1000W XOC BIOS to one of those 1.07v cards? Planning on slapping an AIB BIOS onto your FE? You'll probably need this tool.
@@ -13,6 +15,8 @@ For most users, that limitation makes sense. However, there are those who seek m
 nvflashk enables you to flash almost any nVIDIA BIOS to your GPU. Whether or not it will actually work is a different story, but you should always be able to flash back even if your power cuts out mid-flash. The GPU will simply go into a fallback mode with generic display drivers.
 
 **The base of this tool is copyright nVIDIA and has been provided in a modified fashion for the sole purpose of modifying personal property. This is dangerous and you will have no one but yourself to blame if things go wrong. Your warranty will be null and void the second you so much as think about using this tool.**
+
+**NVIDIA, if you're seeing this and don't want me distributing nvflash itself as is your right, despite it being available on TPU, I will convert this into a patcher.**
 
 **God speed, overclocker.**
 
@@ -91,7 +95,7 @@ The safest bet is flashing a BIOS that was compiled for your exact GPU. However,
 
 ## Backup factory ROM
 
-Second, you should back up your factory ROM. If anything happens, you won't have to go searching for a copy.
+Second, you should back up your factory ROM. If anything happens, you won't have to go searching for a copy. Just do it. I'm lazy too. Do it anyways.
 
 ```
 nvflash64k.exe -b factory.rom
