@@ -38,7 +38,10 @@ So far the following scenarios have been confirmed, and I will continue to updat
 * 4090 Founders Edition BIOS flashed to 4090 TUF OC card (this was supposed to be impossible due to 'different bios chips')
 * 3070 STRIX BIOS flashed to 3070 Founders Edition (**Flashing AIB to FE 3xxx series confirmed!**)
 
-
+Things we know DOES NOT work:
+* Cross-flashing generations i.e. 3xxx to 2xxx
+* Cross-flashing workstation/non-workstation, i.e. 4090 to an A5000. They're not actually identical though, which may be why.
+ 
 Things I'm curious about whether or not it works:
 * Unsigned/modified BIOSes
 * 2xxx/3xxx series that had revisions which locked out older power-boosted BIOSes
@@ -59,13 +62,24 @@ The items that are checked are:
 
 nVidia has implemented their own 'mismatch bypass' within the nvflash code, and this version has forced that bypass to be enabled at all times. This makes this a very, very dangerous version of nvflash. However, **it will still confirm you want to perform those bypasses and only when they're necessary, unlike former versions of patched nvflash**. This will not flash all willy nilly.
 
-## Safety
+# I want to try flashing something nobody else has tried before. How do I stay safe?
 
-Alright, everyone's gonna ask about safety. Is it safe? I can't legally tell you if it is or isn't. I don't know.
+*First off, thank you for your contribution and courage!* It's almost impossible to actually permanently brick an NVIDIA card in the sense of a BIOS that won't boot. If you burn out components by putting load on it that the hardware wasn't designed to handle, that's another story. But you should always be able to flash back if it fails to upload the ROM.
 
-What I can tell you is that nVidia's flashing protocol appears to be robust and failures do not prevent reflashing. If something breaks or your power cuts out, you can boot up and reflash, even without an iGPU. However, what happens when you do something like flash a BIOS from one series to another has never been seen before. It could cause major electrical problems. Who knows.
+The only question is whether or not you'll have to use your iGPU or another computer to flash it back. In almost every case, the answer is no: the GPU will go into fallback mode and you can flash it while using it. But if you somehow upload a BIOS that, say, has no video outputs.. you may be in trouble without another computer.
 
-If you don't feel safe doing it, wait until someone else does. I'll keep a list of successful weird things in the README.
+When I attempted to flash an A5000 BIOS to my 4090, among other test cases, the GPU itself simply rejected the firmware, regardless of whether nvflash wanted it there or not, and I just had to reboot:
+```
+Update display adapter firmware?
+Press 'y' to confirm (any other key to abort):
+Reading EEPROM (this operation may take up to 30 seconds)
+
+Nothing changed!
+
+
+
+ERROR: Invalid firmware image detected.
+```
 
 ## Versioning/Support
 
@@ -209,7 +223,7 @@ Reboot and say hi to @kefinator on discord.gg/overclock
 Have fun! To revert, you just run the exact same command against the backup BIOS ROM file after rebooting.
 # What happens if the flash fails?
 
-Usually, you can just flash it again. The GPU still works for non-accelerated graphics so you can do this even without an iGPU. Here's an example of me flashing back to my stock BIOS after a failed flash to the XOC BIOS:
+Usually, you can just flash it again. Worst case, you plug the GPU into another computer or use your integrated graphics. The GPU almost always still works for non-accelerated graphics so you can do this even without an iGPU. Here's an example of me flashing back to my stock BIOS after a failed flash to the XOC BIOS:
 
 ```
 .\nvflash64k.exe -6 .\tufoc.rom
