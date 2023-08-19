@@ -1,9 +1,8 @@
 # nvflashk
 [![Github All Releases](https://img.shields.io/github/downloads/notfromstatefarm/nvflash/total.svg)]()
 
-[Flashing my 4090 TUF OC to the Founders Edition BIOS and regaining 1.1v](https://www.youtube.com/watch?v=ADlVK0HoMkw)
+[![Flashing a 4090 TUF OC to STRIX BIOS for 1.1v and getting huge gains](https://img.youtube.com/vi/25EarvBrkX8/default.jpg)](https://youtu.be/25EarvBrkX8) [![Flashing a 4090 TUF OC to the Founders Edition BIOS](https://img.youtube.com/vi/ADlVK0HoMkw/default.jpg)](https://youtu.be/ADlVK0HoMkw) [![Flashing a 1.1v 1000W 4090 STRIX XOC BIOS to a 1.07v 4090 TUF OC](https://img.youtube.com/vi/iEZBof0S9dc/default.jpg)](https://youtu.be/iEZBof0S9dc)
 
-[Flashing a 1.1v 1000W 4090 STRIX XOC BIOS to my 1.07v 4090 TUF OC](https://www.youtube.com/watch?v=iEZBof0S9dc)
 
 This is a patched version of [nvflash](https://www.techpowerup.com/download/nvidia-nvflash/), nVIDIA's utility for modifying the vBIOS (amongst many other things) on their GPUs which allows flashing *any* vBIOS to *any* nVIDIA GPU. Black magic stuff.
 
@@ -22,13 +21,17 @@ nvflashk enables flashing *any* nVIDIA BIOS to *any* nVIDIA GPU up to the 4000 s
 
 Yep, if you're one of the unlucky bastards that bought a 4090/4080 later down the line, you can flash a full voltage BIOS to your neutered card now. I won't tell you which BIOS that is, though. So far this has been confirmed on a 4090 and 4080.
 
+[Here's a video I recorded showing huge benchmark gains from upgrading to a 1.1v BIOS.](https://www.youtube.com/watch?v=25EarvBrkX8)
+
 ## What else have you tried?
 
 So far the following scenarios have been confirmed, and I will continue to update as confirmations come in:
 
 * 4090 STRIX XOC 1.1v BIOS flashed to 4090 TUF OC card with 1.07v (4090 voltage fix confirmed!)
-* 4090 Founders Edition BIOS flashed to 4090 TUF OC card (this was supposed to be impossible due to 'different bios chips')
 * 4080 flashed from 1.095v to original 1.11v BIOS (4080 voltage fix confirmed!)
+* 4090 Founders Edition BIOS flashed to 4090 TUF OC card (this was supposed to be impossible due to 'different bios chips')
+* 3070 STRIX BIOS flashed to 3070 Founders Edition (**Flashing AIB to FE 3xxx series confirmed!**)
+
 
 Things I'm curious about whether or not it works:
 * Unsigned/modified BIOSes
