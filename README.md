@@ -23,9 +23,7 @@ For most users, that limitation makes sense. However, there are those who seek m
 
 nvflashk enables you to flash almost any nVIDIA BIOS to your GPU. Whether or not it will actually work is a different story, but you should always be able to flash back even if your power cuts out mid-flash. The GPU will either go into a fallback mode with generic display drivers, or you'll simply have to reflash using your iGPU, the secondary BIOS on your GPU if you have a dual BIOS, or another computer. One way or the other, you cannot permanently damage an NVIDIA GPU from a BIOS flash in and of itself. The results once you try to put load on it, however, cannot be guaranteed.
 
-**The base of this tool is copyright nVIDIA and has been provided in a modified fashion for the sole purpose of modifying personal property. This is dangerous and you will have no one but yourself to blame if things go wrong. Your warranty will be null and void the second you so much as think about using this tool.**
-
-**NVIDIA, if you're seeing this and don't want me distributing nvflash itself as is your right, despite it being available on TPU, I will convert this into a patcher.**
+**The base of this release is copyright nVIDIA and has been provided in a modified fashion for the sole purpose of modifying personal property. This is dangerous and you will have no one but yourself to blame if things go wrong. Your warranty will be null and void the second you so much as think about using this tool.**
 
 **God speed, overclocker.**
 
@@ -45,8 +43,9 @@ I won't tell you which BIOS to use, though. That's on you and the community to f
 * 4080 flashed from 1.095v to original 1.11v BIOS (4080 voltage fix confirmed!)
 * 4090 Founders Edition BIOS flashed to 4090 TUF OC card (this was supposed to be impossible due to 'different bios chips')
 * 3070 STRIX BIOS flashed to 3070 Founders Edition (**Flashing AIB to FE 3xxx series confirmed!**)
-* 4090 STRIX XOC 
-## nvflashk allows but causes no display or otherwise cannot reflash itself
+* 4090 STRIX XOC BIOS to 4090 Founders Edition (**Flashing AIB to FE 4xxx series confirmed!**) - Solar Bay HOF result from doing this
+
+## nvflashk allows but causes no display/cannot POST
 Note that these can still be experimented with and reflashed, you just need a way to reflash without that GPU. See 'Recovery when something goes wrong' below.
 
 * Flashing a 4080 BIOS to a 4090
@@ -103,9 +102,11 @@ But again, a simple reflash.
 If you want to be safe when flashing, you need at least one of the following, sorted from easiest recovery to hardest:
 
 * An integrated GPU and output on the motherboard. You simply use the main output while you flash the GPU as normal.
-* A GPU with a dual BIOS switch. Shut down, flip the switch, start up, disable device in device manager, flip it back, flash, reboot. You can use `nvflash64k.exe --version` to show what is on the card, and `nvflask64k.exe --version file.rom` to show what is in a file, to ensure you are flashing the right things. **Make sure you back up your second BIOS ROM too in case it does something different you want to restore!**
+* A GPU with a dual BIOS switch. Shut down, flip the switch, start up, disable device in device manager, flip it back, flash, reboot. You can use `nvflashk.exe --version` to show what is on the card, and `nvflashk.exe --version file.rom` to show what is in a file, to ensure you are flashing the right things. **Make sure you back up your second BIOS ROM too in case it does something different you want to restore!**
 * An extra PCIe x16 slot and extra GPU that can fit (probably only with a riser cable) and you have extra power cables for, in order to use a working GPU to flash the broken GPU.
 * Another computer with an iGPU or extra PCIe slot as described above.
+
+### In the rare case your flashed GPU causes the machine to not POST, usually by flashing one chip to another (ie 4080 to 4090), you can turn on the Compatiblity Support Module (CSM) in BIOS to get past that until you've reflashed the card.
 
 # Instructions
 
@@ -115,7 +116,7 @@ But god knows what may be in those black box BIOS files and what may make them u
 
 ## Download
 
-Get latest `nvflash64k.exe` from [releases page](https://github.com/notfromstatefarm/nvflash/releases) and place anywhere you'd like.
+Get latest `nvflashk.exe` from [releases page](https://github.com/notfromstatefarm/nvflash/releases) and place anywhere you'd like.
 
 ## Flashing
 
@@ -124,7 +125,7 @@ I'm not going to go in depth into the nvflash tool - this is the same feature se
 As you run the tool, it will disable the video driver and your screen will black out momentarily. Don't panic. You can disable the video device yourself in Device Manager if you'd rather avoid this.
 
 ## Get a vBIOS
-First, you'll need a vBIOS to flash. You may be able to find it at the [TechPowerUp vBIOS collection](https://www.techpowerup.com/vgabios/). Download it and place it next to the nvflash64k binary.
+First, you'll need a vBIOS to flash. You may be able to find it at the [TechPowerUp vBIOS collection](https://www.techpowerup.com/vgabios/). Download it and place it next to the nvflashk binary.
 
 The safest bet is flashing a BIOS that was compiled for your exact GPU. However, you wouldn't be here if that's what you were doing. So I hope you've chosen wisely.
 
@@ -135,7 +136,7 @@ Second, you should back up your factory ROM. If anything happens, you won't have
 > If you have a dual BIOS switch like me, you'll probably want to back up both of them *just in case*. You can simply flip the switch and run the command again with a different filename, and then switch back (or don't) before you flash. No reboot is required - the BIOS chip is only read from when your machine POSTs and the write destination can be changed on the fly with the switch.
 
 ```
-nvflash64k.exe -b factory.rom
+nvflashk.exe -b factory.rom
 nvflashk pre-release
 github.com/notfromstatefarm/nvflashk - Safer GUI version with autorecovery coming by September!
 
@@ -167,7 +168,7 @@ CEC OTA-signed Blob   : Not Present
 If this is your first time flashing this GPU, you may need to disable the EEPROM write protect.
 
 ```
-nvflash64k.exe --protectoff
+nvflashk.exe --protectoff
 nvflashk pre-release
 github.com/notfromstatefarm/nvflashk - Safer GUI version with autorecovery coming by September!
 
