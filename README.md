@@ -3,7 +3,9 @@
 
 [![Flashing a 4090 TUF OC to STRIX BIOS for 1.1v and getting huge gains](https://img.youtube.com/vi/25EarvBrkX8/default.jpg)](https://youtu.be/25EarvBrkX8) [![Flashing a 4090 TUF OC to the Founders Edition BIOS](https://img.youtube.com/vi/ADlVK0HoMkw/default.jpg)](https://youtu.be/ADlVK0HoMkw) [![Flashing a 1.1v 1000W 4090 STRIX XOC BIOS to a 1.07v 4090 TUF OC](https://img.youtube.com/vi/iEZBof0S9dc/default.jpg)](https://youtu.be/iEZBof0S9dc)
 
-This is a patched version of [nvflash](https://www.techpowerup.com/download/nvidia-nvflash/), nVIDIA's utility for modifying the vBIOS (amongst many other things). This version allows you to flash nearly any *signed* BIOS to your GPU. If you need to reach me for any reason, you can email me at itskefi@proton.me or on Discord @kefinator
+This is an early release of nvflashk, a patched version of [nvflash](https://www.techpowerup.com/download/nvidia-nvflash/), nVIDIA's utility for modifying the vBIOS (amongst many other things). It allows you to flash nearly any *signed* BIOS to your GPU.
+
+If you need to reach me for any reason, you can email me at itskefi@proton.me or on Discord @kefinator. I'm also on the [Overclocking discord in the #gpu-overclocking channel](https://discord.gg/overclock). Suggestions for nvflashk are welcome!
 
 # This is only the initial release of the bypass itself so advanced users did not have to wait longer. nvflashk will feature a graphical interface, auto-recovery, BIOS search, and more in the coming weeks, for those who want a safer, more user-friendly way to flash their GPUs.
 
