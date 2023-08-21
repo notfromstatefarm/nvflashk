@@ -1,6 +1,8 @@
 # nvflashk
 [![Github All Releases](https://img.shields.io/github/downloads/notfromstatefarm/nvflash/total.svg)]()
 
+### [Download from the releases page](https://github.com/notfromstatefarm/nvflashk/releases)
+
 [![Flashing a 4090 TUF OC to STRIX BIOS for 1.1v and getting huge gains](https://img.youtube.com/vi/25EarvBrkX8/default.jpg)](https://youtu.be/25EarvBrkX8) [![Flashing a 4090 TUF OC to the Founders Edition BIOS](https://img.youtube.com/vi/ADlVK0HoMkw/default.jpg)](https://youtu.be/ADlVK0HoMkw) [![Flashing a 1.1v 1000W 4090 STRIX XOC BIOS to a 1.07v 4090 TUF OC](https://img.youtube.com/vi/iEZBof0S9dc/default.jpg)](https://youtu.be/iEZBof0S9dc)
 
 This is an early release of nvflashk, a patched version of [nvflash](https://www.techpowerup.com/download/nvidia-nvflash/), nVIDIA's utility for modifying the vBIOS (amongst many other things). It allows you to flash nearly any *signed* BIOS to your GPU.
@@ -105,11 +107,6 @@ If you want to be safe when flashing, you need at least one of the following, so
 * An extra PCIe x16 slot and extra GPU that can fit (probably only with a riser cable) and you have extra power cables for, in order to use a working GPU to flash the broken GPU.
 * Another computer with an iGPU or extra PCIe slot as described above.
 
-# Versioning/Support
-
-The current version is `5.814.0.k1`. The version will be the base nvflash version i.e. `5.814.0` followed by a `.kN`. This way, if I have to release a patch to my patch, you know which version you have.
-
-
 # Instructions
 
 First off, know what you're doing. Yes, technically speaking, flashing in and of itself should be a relatively safe ordeal. You can always flash back and many GPUs have dual BIOS switches.
@@ -139,9 +136,9 @@ Second, you should back up your factory ROM. If anything happens, you won't have
 
 ```
 nvflash64k.exe -b factory.rom
-NVIDIA Firmware Update Utility (Version 5.814.0.k1)
+nvflashk pre-release
+github.com/notfromstatefarm/nvflashk - Safer GUI version with autorecovery coming by September!
 
-Mismatch bypass by @kefinator. JOIN DISCORD: discord.gg/overclock
 Reading EEPROM (this operation may take up to 30 seconds)
 
 Build GUID            : F0F470ABF21E46FAA818D1B995011D76
@@ -171,9 +168,9 @@ If this is your first time flashing this GPU, you may need to disable the EEPROM
 
 ```
 nvflash64k.exe --protectoff
-NVIDIA Firmware Update Utility (Version 5.814.0.k1)
+nvflashk pre-release
+github.com/notfromstatefarm/nvflashk - Safer GUI version with autorecovery coming by September!
 
-Mismatch bypass by @kefinator. JOIN DISCORD: discord.gg/overclock
 Setting EEPROM protection complete.
 ```
 
@@ -181,9 +178,9 @@ Setting EEPROM protection complete.
 Now we're going to actually write the vBIOS to the GPU. Depending on the BIOS and GPU, the exact output of this command will vary. While flashing the 1000W XOC BIOS to the TUF, this is what we see:
 
 ```
-NVIDIA Firmware Update Utility (Version 5.814.0.k1)
+nvflashk pre-release
+github.com/notfromstatefarm/nvflashk - Safer GUI version with autorecovery coming by September!
 
-Mismatch bypass by @kefinator. JOIN DISCORD: discord.gg/overclock
 Checking for matches between display adapter(s) and image(s)...
 
 Reading EEPROM (this operation may take up to 30 seconds)
