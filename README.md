@@ -4,7 +4,9 @@
 [![Flashing a 4090 TUF OC to STRIX BIOS for 1.1v and getting huge gains](https://img.youtube.com/vi/25EarvBrkX8/default.jpg)](https://youtu.be/25EarvBrkX8) [![Flashing a 4090 TUF OC to the Founders Edition BIOS](https://img.youtube.com/vi/ADlVK0HoMkw/default.jpg)](https://youtu.be/ADlVK0HoMkw) [![Flashing a 1.1v 1000W 4090 STRIX XOC BIOS to a 1.07v 4090 TUF OC](https://img.youtube.com/vi/iEZBof0S9dc/default.jpg)](https://youtu.be/iEZBof0S9dc)
 
 
-This is a patched version of [nvflash](https://www.techpowerup.com/download/nvidia-nvflash/), nVIDIA's utility for modifying the vBIOS (amongst many other things). This version allows you to flash nearly any *signed* BIOS to your GPU. Custom BIOS bypass coming soon.
+This is a patched version of [nvflash](https://www.techpowerup.com/download/nvidia-nvflash/), nVIDIA's utility for modifying the vBIOS (amongst many other things). This version allows you to flash nearly any *signed* BIOS to your GPU.
+
+# This is only the initial release of the bypass itself. nvflashk will feature a graphical interface, auto-recovery, BIOS search, and more in the coming weeks, for those who want a safer way to flash their GPUs.
 
 > Before using this tool, make sure you back up your factory ROM. **Seriously, do it. You only have to do it once per card. This 10 second process is how you protect yourself against any potential failures, and failures DO happen randomly for absolutely no reason. Back the file up to another computer. Do not lose your factory ROM, you may never find a replacement that you are certain matches perfectly because the installed BIOS is what truly identifies your card. If you have a dual BIOS switch, back them both up. Instructions for doing so are below.** 
 
